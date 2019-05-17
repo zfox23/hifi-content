@@ -164,6 +164,19 @@
     }
 
 
+    // Called when the user's avatar changes
+    function onSkeletonModelURLChanged() {
+        _this.standUp();
+
+        Script.setTimeout(function() {
+            var roles = rolesToOverride();
+            for (var j in roles) {
+                MyAvatar.restoreRoleAnimation(roles[j]);
+            }
+        }, 2000);
+    }
+
+
     // 4th of sit down sequence
     // Sit the avatar down (in the sitting animation) and pin the hips to the spot
     var ANIMATION_URL = Script.resolvePath("./resources/animations/sittingIdle.fbx");
@@ -216,7 +229,7 @@
                 MyAvatar.onLoadComplete.connect(_this.standUp);
                 location.hostChanged.connect(_this.standUp);
                 Script.scriptEnding.connect(_this.standUp);
-                MyAvatar.skeletonModelURLChanged.connect(_this.standUp);
+                MyAvatar.skeletonModelURLChanged.connect(onSkeletonModelURLChanged);
                 MyAvatar.wentAway.connect(_this.standUp);
                 _this.connectedSignals = true;
             }
@@ -407,7 +420,7 @@
             MyAvatar.onLoadComplete.disconnect(_this.standUp);
             location.hostChanged.disconnect(_this.standUp);
             Script.scriptEnding.disconnect(_this.standUp);
-            MyAvatar.skeletonModelURLChanged.disconnect(_this.standUp);
+            MyAvatar.skeletonModelURLChanged.disconnect(onSkeletonModelURLChanged);
             MyAvatar.wentAway.disconnect(_this.standUp);
             _this.connectedSignals = false;
         }
@@ -669,7 +682,7 @@
             MyAvatar.onLoadComplete.disconnect(_this.standUp);
             location.hostChanged.disconnect(_this.standUp);
             Script.scriptEnding.disconnect(_this.standUp);
-            MyAvatar.skeletonModelURLChanged.disconnect(_this.standUp);
+            MyAvatar.skeletonModelURLChanged.disconnect(onSkeletonModelURLChanged);
             MyAvatar.wentAway.disconnect(_this.standUp);
             _this.connectedSignals = false;
         }
