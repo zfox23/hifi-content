@@ -20,6 +20,10 @@ The Tablet Cam app allows you to **easily take selfies and regular photos in Hig
 
 ## Changelog
 
+### v2.3.1 (2019-10-28)
+
+- Default first person view is now `"first person look at"` instead of `"first person"`, which required some code changes.
+
 ### v2.3 (2019-10-15)
 
 - Removed unnecessary tone curve correction present in captured Tablet Cam output image.

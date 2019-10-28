@@ -543,7 +543,7 @@
                 // If:
                 // - User is in third person mode
                 // - User is using the rear-facing camera
-                if (cameraMode !== "first person" && !frontCamInUse) {
+                if ((cameraMode !== "first person" && cameraMode !== "first person look at") && !frontCamInUse) {
                     dynamicProps.parentID = MyAvatar.sessionUUID;
                     dynamicProps.parentJointIndex = MyAvatar.getJointIndex("_CAMERA_MATRIX");
                 } else {
@@ -558,14 +558,14 @@
     
             dynamicProps.localPosition = {
                 "x": 0,
-                "y": !!HMD.tabletID ? 0.215 : (frontCamInUse ? -0.03 : (Camera.mode !== "first person" ? 0 : -0.02)),
-                "z": !!HMD.tabletID ? (frontCamInUse ? -0.02 : 0.1) : (frontCamInUse ? 1 : (Camera.mode !== "first person" ? 0 : 0.05))
+                "y": !!HMD.tabletID ? 0.215 : (frontCamInUse ? -0.03 : ((Camera.mode !== "first person" && Camera.mode !== "first person look at") ? 0 : -0.02)),
+                "z": !!HMD.tabletID ? (frontCamInUse ? -0.02 : 0.1) : (frontCamInUse ? 1 : ((Camera.mode !== "first person" && Camera.mode !== "first person look at") ? 0 : 0.05))
             },
             dynamicProps.localRotation = {
                 "x": 0,
-                "y": frontCamInUse || (!frontCamInUse && Camera.mode !== "first person") ? 0 : 1,
+                "y": frontCamInUse || (!frontCamInUse && (Camera.mode !== "first person" && Camera.mode !== "first person look at")) ? 0 : 1,
                 "z": 0,
-                "w": frontCamInUse || (!frontCamInUse && Camera.mode !== "first person") ? 1 : 0
+                "w": frontCamInUse || (!frontCamInUse && (Camera.mode !== "first person" && Camera.mode !== "first person look at")) ? 1 : 0
             }
         }
 
